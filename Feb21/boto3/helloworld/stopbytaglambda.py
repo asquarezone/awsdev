@@ -15,5 +15,5 @@ def lambda_handler(event, context):
             if env_name in name_pair.values() and env_value in name_pair.values():
                 instance_ids.append(instance.id)
                 instance.stop()
-    return 
+    return instance_ids
     #raise Exception('Something went wrong')
