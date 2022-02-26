@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-yv!%7!j_98*jfl@(i(b$whi7xkic=-j)0%&7v7s%@)v!(2dmdn
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['sample-env.eba-gf9utd7r.us-west-2.elasticbeanstalk.com']
 
 
 # Application definition
@@ -74,23 +74,21 @@ WSGI_APPLICATION = 'sampleappdb.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
-if os.getenv('HOSTED_ENV') == None:
-    # local developer machine
-    connection_info = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-else:
-    connection_info = {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DBNAME'),
-        'HOST': os.getenv('DBHOST'),
-        'USER': os.getenv('DBUSER'),
-        'PASSWORD': os.getenv('DBPASSWORD'),
-        'OPTIONS': {'sslmode': 'require'}
-    }
-    pass
-
+# if os.getenv('HOSTED_ENV') == None:
+#     # local developer machine
+#     connection_info = {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# else:
+connection_info = {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': os.getenv('RDS_DB_NAME'),
+    'HOST': os.getenv('RDS_HOSTNAME'),
+    'USER': os.getenv('RDS_USERNAME'),
+    'PASSWORD': os.getenv('RDS_PASSWORD'),
+    'OPTIONS': {'sslmode': 'require'}
+}
 
 DATABASES = {
     'default': connection_info
